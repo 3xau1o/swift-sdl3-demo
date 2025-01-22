@@ -9,21 +9,12 @@ let package = Package(
     ],
     targets: [
         .systemLibrary(
-            name: "libsdl"
+            name: "CSDL"
         ),
-        .systemLibrary(
-            name: "libcurl",
-            providers: [
-                .apt(["libcurl4-openssl-dev"]),
-                .brew(["curl"]),
-            ]
-        ),
-
         .target(
             name: "Sample",
             dependencies: [
-                .target(name: "libcurl"),
-                .target(name: "libsdl"),
+                .target(name: "CSDL")
             ]),
     ]
 )
