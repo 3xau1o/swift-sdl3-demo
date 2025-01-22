@@ -1,0 +1,5 @@
+module libsdl [system] {
+    header "libsdl.h"
+    link "/usr/local/lib/libSDL3.so"
+    export *
+}
