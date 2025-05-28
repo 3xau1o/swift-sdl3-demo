@@ -1,21 +1,21 @@
 {
     "configurations": [
         {
-            "type": "lldb",
+            "type": "swift",
             "request": "launch",
             "args": [],
-            "cwd": "${workspaceFolder:sdl}",
+            "cwd": "${workspaceFolder:swift-sdl-demo}",
             "name": "Debug Sample",
-            "program": "${workspaceFolder:sdl}/.build/debug/Sample",
+            "program": "${workspaceFolder:swift-sdl-demo}/.build/debug/Sample",
             "preLaunchTask": "swift: Build Debug Sample"
         },
         {
-            "type": "lldb",
+            "type": "swift",
             "request": "launch",
             "args": [],
-            "cwd": "${workspaceFolder:sdl}",
+            "cwd": "${workspaceFolder:swift-sdl-demo}",
             "name": "Release Sample",
-            "program": "${workspaceFolder:sdl}/.build/release/Sample",
+            "program": "${workspaceFolder:swift-sdl-demo}/.build/release/Sample",
             "preLaunchTask": "swift: Build Release Sample"
         }
     ]
