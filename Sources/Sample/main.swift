@@ -1,17 +1,16 @@
 import SDL
 
-let title = "zig_sdl"
 let w: Int32 = 640
 let h: Int32 = 480
 
 SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS)
-let window = SDL_CreateWindow(title, w, h, 0)
 
-func rendi(window: OpaquePointer?) {
+func rendi() {
     var BLANKA = RGBA(r: 255, g: 255, b: 255, a: 255)
-
     var NIGRA = RGBA(r: 0, g: 0, b: 0, a: 0)
-    let renderer: SDLRenderer = SDLRenderer(ptrWin: window)
+
+    let window = SDLWindow(t: "SDL", w: w, h: h)
+    let renderer: SDLRenderer = SDLRenderer(win: window)
     var quit = false
     var event = SDL_Event()
     while !quit {
@@ -39,7 +38,6 @@ func rendi(window: OpaquePointer?) {
     }
 }
 
-rendi(window: window)
+rendi()
 
-SDL_DestroyWindow(window)
 SDL_Quit()
