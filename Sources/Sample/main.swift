@@ -7,10 +7,32 @@ let h: Int32 = 480
 SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS)
 let window = SDL_CreateWindow(title, w, h, 0)
 
-let renderer = SDL_CreateRenderer(window, nil)
-
-var quit = false
-var event = SDL_Event()
+class SDLRenderer {
+    let ptr: OpaquePointer
+    init(ptrWin: OpaquePointer?) {
+        print("create renderer")
+        ptr = SDL_CreateRenderer(ptrWin, nil)
+    }
+    deinit {
+        print("drop renderer \(String(describing: ptr))")
+        SDL_DestroyRenderer(ptr)
+    }
+    func clear() -> Bool {
+        CSDL.SDL_RenderClear(ptr)
+    }
+    func present() -> Bool {
+        CSDL.SDL_RenderPresent(ptr)
+    }
+    func setDrawColor(c: inout RGBA) -> Bool {
+        CSDL.SDL_SetRenderDrawColor(ptr, c.r, c.g, c.b, c.a)
+    }
+    func drawLine(x1: Float, y1: Float, x2: Float, y2: Float) -> Bool {
+        CSDL.SDL_RenderLine(ptr, x1, y1, x2, y2)
+    }
+    func drawRect(rect: inout SDL_FRect) -> Bool {
+        CSDL.SDL_RenderRect(ptr, &rect)
+    }
+}
 
 struct RGBA {
     let r: Uint8
@@ -19,34 +41,40 @@ struct RGBA {
     let a: Uint8
 }
 
-let BLANKA = RGBA(r: 255, g: 255, b: 255, a: 255)
+func rendi(window: OpaquePointer?) {
+    var BLANKA = RGBA(r: 255, g: 255, b: 255, a: 255)
 
-let NIGRA = RGBA(r: 0, g: 0, b: 0, a: 0)
-
-while !quit {
-    while SDL_PollEvent(&event) {
-        switch event.type {
-        case SDL_EVENT_QUIT.rawValue:
-            quit = true
-            // print quit
-            print("test")
-        default:
-            break
+    var NIGRA = RGBA(r: 0, g: 0, b: 0, a: 0)
+    let renderer: SDLRenderer = SDLRenderer(ptrWin: window)
+    var quit = false
+    var event = SDL_Event()
+    while !quit {
+        while SDL_PollEvent(&event) {
+            switch event.type {
+            case SDL_EVENT_QUIT.rawValue:
+                quit = true
+                // print quit
+                print("test")
+            default:
+                break
+            }
         }
+
+        renderer.setDrawColor(c: &NIGRA)
+        renderer.clear()
+        renderer.setDrawColor(c: &BLANKA)
+
+        // SDL_RenderLine(renderer, 0, 0, 50, 50)
+        renderer.drawLine(x1: 0, y1: 0, x2: 50, y2: 50)
+        var rect = SDL_FRect(x: 50, y: 50, w: 100, h: 100)
+        renderer.drawRect(rect: &rect)
+
+        renderer.present()
+        SDL_Delay(1)
     }
-
-    SDL_SetRenderDrawColor(renderer, NIGRA.r, NIGRA.g, NIGRA.b, NIGRA.a)
-    SDL_RenderClear(renderer)
-
-    SDL_SetRenderDrawColor(renderer, BLANKA.r, BLANKA.g, BLANKA.b, BLANKA.a)
-    SDL_RenderLine(renderer, 0, 0, 50, 50)
-    var rect = SDL_FRect(x: 50, y: 50, w: 100, h: 100)
-    SDL_RenderRect(renderer, &rect)
-
-    SDL_RenderPresent(renderer)
-    SDL_Delay(1)
 }
 
-SDL_DestroyRenderer(renderer)
+rendi(window: window)
+
 SDL_DestroyWindow(window)
 SDL_Quit()
