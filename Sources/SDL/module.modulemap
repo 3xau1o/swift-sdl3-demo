@@ -1,5 +1,5 @@
 module SDL [system] {
-    header "libsdl.h"
+    header "sdl3.h"
     link "/usr/local/lib/libSDL3.so"
     export *
 }
