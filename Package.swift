@@ -9,12 +9,12 @@ let package = Package(
     ],
     targets: [
         .systemLibrary(
-            name: "CSDL"
+            name: "SDL"
         ),
         .target(
             name: "Sample",
             dependencies: [
-                .target(name: "CSDL")
+                .target(name: "SDL")
             ]),
     ]
 )

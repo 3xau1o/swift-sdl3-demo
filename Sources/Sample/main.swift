@@ -1,4 +1,4 @@
-import CSDL
+import SDL
 
 let title = "zig_sdl"
 let w: Int32 = 640
@@ -18,19 +18,19 @@ class SDLRenderer {
         SDL_DestroyRenderer(ptr)
     }
     func clear() -> Bool {
-        CSDL.SDL_RenderClear(ptr)
+        SDL.SDL_RenderClear(ptr)
     }
     func present() -> Bool {
-        CSDL.SDL_RenderPresent(ptr)
+        SDL.SDL_RenderPresent(ptr)
     }
     func setDrawColor(c: inout RGBA) -> Bool {
-        CSDL.SDL_SetRenderDrawColor(ptr, c.r, c.g, c.b, c.a)
+        SDL.SDL_SetRenderDrawColor(ptr, c.r, c.g, c.b, c.a)
     }
     func drawLine(x1: Float, y1: Float, x2: Float, y2: Float) -> Bool {
-        CSDL.SDL_RenderLine(ptr, x1, y1, x2, y2)
+        SDL.SDL_RenderLine(ptr, x1, y1, x2, y2)
     }
     func drawRect(rect: inout SDL_FRect) -> Bool {
-        CSDL.SDL_RenderRect(ptr, &rect)
+        SDL.SDL_RenderRect(ptr, &rect)
     }
 }
 
