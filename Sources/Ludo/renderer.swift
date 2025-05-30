@@ -27,4 +27,14 @@ class SDLRenderer {
             SDL_RenderRect(ptr, ptrRect)
         }
     }
+    func drawTexture(
+        _ texture: SDLTexture, _ srcrect: borrowing SDL_FRect?, _ dstrect: borrowing SDL_FRect
+    ) -> Bool {
+        // to extenion generic methods
+        let ptrDstRect = withUnsafePointer(to: dstrect) { $0 }
+        let ptrSrcRect: UnsafePointer<SDL_FRect>? = srcrect.map { withUnsafePointer(to: $0) { $0 } }
+        return SDL_RenderTexture(ptr, texture.ptr, ptrSrcRect, ptrDstRect)
+    }
 }
+
+// https://wiki.libsdl.org/SDL3/SDL_SetDefaultTextureScaleMode

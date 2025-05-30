@@ -16,6 +16,10 @@ func rendi() {
     var event = SDL_Event()
 
     let rect = SDL_FRect(x: 50, y: 50, w: 100, h: 100)
+    let rect2 = SDL_FRect(x: 100, y: 100, w: 100, h: 100)
+
+    let texture = SDLTexture(renderer, "./Sources/asset/fikso/blanka/bishop.png")
+    _ = texture.setScaleMode()
 
     while !quit {
         while SDL_PollEvent(&event) {
@@ -35,14 +39,10 @@ func rendi() {
         _ = renderer.drawLine(x1: 0, y1: 0, x2: 50, y2: 50)
         _ = renderer.drawRect(rect: rect)
         _ = renderer.drawRect(rect: rect)
+        _ = renderer.drawTexture(texture, nil, rect)
         _ = renderer.present()
-        // let errPtr = SDL_GetError()
-        // let err = errPtr != nil ? String(cString: errPtr!) : ""
-        // if !err.isEmpty {
-        //     print("SDL Error: \(err)")
-        // }
+
         SDL_Delay(1)
     }
     SDL_Quit()
 }
-
