@@ -2,4 +2,10 @@ module SDL3 [system] {
     header "sdl3.h"
     link "/usr/local/lib/libSDL3.so"
     export *
+
+    module IMG {
+        header "sdl3-img.h"
+        link "/usr/local/lib/libSDL3_image.so"
+        export *
+    }
 }
