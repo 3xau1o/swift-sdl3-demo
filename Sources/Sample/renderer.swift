@@ -16,20 +16,15 @@ class SDLRenderer {
     func present() -> Bool {
         SDL_RenderPresent(ptr)
     }
-    func setDrawColor(c: inout RGBA) -> Bool {
+    func setDrawColor(c: borrowing RGBA) -> Bool {
         SDL_SetRenderDrawColor(ptr, c.r, c.g, c.b, c.a)
     }
     func drawLine(x1: Float, y1: Float, x2: Float, y2: Float) -> Bool {
         SDL_RenderLine(ptr, x1, y1, x2, y2)
     }
-    func drawRect(rect: inout SDL_FRect) -> Bool {
-        SDL_RenderRect(ptr, &rect)
+    func drawRect(rect: borrowing SDL_FRect) -> Bool {
+        return withUnsafePointer(to: rect) { ptrRect in
+            SDL_RenderRect(ptr, ptrRect)
+        }
     }
-}
-
-struct RGBA {
-    let r: Uint8
-    let g: Uint8
-    let b: Uint8
-    let a: Uint8
 }
