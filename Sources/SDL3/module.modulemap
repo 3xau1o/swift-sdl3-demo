@@ -1,4 +1,4 @@
-module SDL [system] {
+module SDL3 [system] {
     header "sdl3.h"
     link "/usr/local/lib/libSDL3.so"
     export *

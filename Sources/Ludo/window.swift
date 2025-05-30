@@ -1,4 +1,4 @@
-import SDL
+import SDL3
 
 /// https://wiki.libsdl.org/SDL3/SDL_WindowFlags
 private struct WindowFlags {

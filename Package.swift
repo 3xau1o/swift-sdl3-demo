@@ -3,18 +3,18 @@
 import PackageDescription
 
 let package = Package(
-    name: "Sample",
+    name: "Ludo",
     products: [
-        .executable(name: "Sample", targets: ["Sample"])
+        .executable(name: "Ludo", targets: ["Ludo"])
     ],
     targets: [
         .systemLibrary(
-            name: "SDL"
+            name: "SDL3"
         ),
         .target(
-            name: "Sample",
+            name: "Ludo",
             dependencies: [
-                .target(name: "SDL")
+                .target(name: "SDL3")
             ]),
     ]
 )

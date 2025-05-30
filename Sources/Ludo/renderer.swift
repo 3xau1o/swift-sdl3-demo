@@ -1,4 +1,4 @@
-import SDL
+import SDL3
 
 class SDLRenderer {
     let ptr: OpaquePointer

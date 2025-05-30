@@ -5,18 +5,18 @@
             "request": "launch",
             "args": [],
             "cwd": "${workspaceFolder:swift-sdl-demo}",
-            "name": "Debug Sample",
-            "program": "${workspaceFolder:swift-sdl-demo}/.build/debug/Sample",
-            "preLaunchTask": "swift: Build Debug Sample"
+            "name": "Debug Ludo",
+            "program": "${workspaceFolder:swift-sdl-demo}/.build/debug/Ludo",
+            "preLaunchTask": "swift: Build Debug Ludo"
         },
         {
             "type": "swift",
             "request": "launch",
             "args": [],
             "cwd": "${workspaceFolder:swift-sdl-demo}",
-            "name": "Release Sample",
-            "program": "${workspaceFolder:swift-sdl-demo}/.build/release/Sample",
-            "preLaunchTask": "swift: Build Release Sample"
+            "name": "Release Ludo",
+            "program": "${workspaceFolder:swift-sdl-demo}/.build/release/Ludo",
+            "preLaunchTask": "swift: Build Release Ludo"
         }
     ]
 }
