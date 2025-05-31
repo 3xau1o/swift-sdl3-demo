@@ -1,6 +1,6 @@
 module SDL3 [system] {
     header "sdl3.h"
-    link "/usr/local/lib/libSDL3.so"
+    link "SDL3"
     export *
 
     module IMG {
