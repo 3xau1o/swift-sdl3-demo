@@ -27,23 +27,18 @@ class SDLRenderer {
             SDL_RenderRect(ptr, ptrRect)
         }
     }
-
+    /** https://wiki.libsdl.org/SDL3/SDL_RenderTexture */
     func drawTexture(
         _ texture: SDLTexture,
-        _ srcrect: borrowing SDL_FRect?,
-        _ dstrect: borrowing SDL_FRect
+        _ srcrect: inout SDL_FRect?,
+        _ dstrect: inout SDL_FRect
     ) -> Bool {
-        // var localSrcRect = srcrect!
-        // let ptrSrcRect: UnsafePointer<SDL_FRect> = withUnsafePointer(to: srcrect) { $0 }
+        if var srcrect {
+            SDL_RenderTexture(ptr, texture.ptr, &srcrect, &dstrect)
+        } else {
+            SDL_RenderTexture(ptr, texture.ptr, nil, &dstrect)
 
-        return withUnsafePointer(to: dstrect) { ptrDstRect in
-            // if srcrect == nil {
-                return SDL_RenderTexture(ptr, texture.ptr, nil, ptrDstRect)
-            // } else {
-            //     return SDL_RenderTexture(ptr, texture.ptr, nil, ptrDstRect)
-            // }
         }
     }
 }
-
 // https://wiki.libsdl.org/SDL3/SDL_SetDefaultTextureScaleMode

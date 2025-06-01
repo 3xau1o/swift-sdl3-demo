@@ -21,15 +21,15 @@ func rendi() {
     var quit = false
     var event = SDL_Event()
 
-    let rect = SDL_FRect(x: 50, y: 50, w: 100, h: 100)
-    let rect2 = SDL_FRect(x: 100, y: 100, w: 100, h: 100)
+    var rect = SDL_FRect(x: 50, y: 50, w: 100, h: 100)
+    var rect2 = SDL_FRect(x: 100, y: 100, w: 100, h: 100)
 
     let urlBBishop = Bundle.module.url(forResource: "b_bishop", withExtension: "png")
 
     if urlBBishop == nil {
         return
     }
-    
+
     let texture = SDLTexture(renderer, urlBBishop!.path)
     _ = texture.setScaleMode()
 
@@ -51,7 +51,8 @@ func rendi() {
         _ = renderer.drawLine(x1: 0, y1: 0, x2: 50, y2: 50)
         _ = renderer.drawRect(rect: rect)
         _ = renderer.drawRect(rect: rect)
-        _ = renderer.drawTexture(texture, nil, rect)
+        var dsr: SDL_FRect? = nil
+        _ = renderer.drawTexture(texture, &dsr, &rect)
         _ = renderer.present()
 
         SDL_Delay(1)
