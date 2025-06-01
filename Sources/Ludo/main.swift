@@ -1,4 +1,6 @@
+import Foundation
 import SDL3
+import SDL3_TTF
 
 let BLANKA = RGBA(r: 255, g: 255, b: 255, a: 255)
 let NIGRA = RGBA(r: 0, g: 0, b: 0, a: 0)
@@ -12,13 +14,23 @@ func rendi() {
 
     let window = SDLWindow(t: "SDL", w: w, h: h)
     let renderer: SDLRenderer = SDLRenderer(win: window)
+
+    let txt = TTF_CreateRendererTextEngine(renderer.ptr)
+    print("TTF_CreateRendererTextEngine returned pointer: \(String(describing: txt))")
+
     var quit = false
     var event = SDL_Event()
 
     let rect = SDL_FRect(x: 50, y: 50, w: 100, h: 100)
     let rect2 = SDL_FRect(x: 100, y: 100, w: 100, h: 100)
 
-    let texture = SDLTexture(renderer, "./Sources/asset/fikso/blanka/bishop.png")
+    let urlBBishop = Bundle.module.url(forResource: "b_bishop", withExtension: "png")
+
+    if urlBBishop == nil {
+        return
+    }
+    
+    let texture = SDLTexture(renderer, urlBBishop!.path)
     _ = texture.setScaleMode()
 
     while !quit {

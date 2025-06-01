@@ -18,6 +18,7 @@ let package = Package(
             dependencies: [
                 .target(name: "SDL3")
             ],
+            resources: [.process("Resources")],
             swiftSettings: [.interoperabilityMode(.Cxx)]
         ),
     ]
