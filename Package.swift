@@ -17,6 +17,8 @@ let package = Package(
             name: "Ludo",
             dependencies: [
                 .target(name: "SDL3")
-            ]),
+            ],
+            swiftSettings: [.interoperabilityMode(.Cxx)]
+        ),
     ]
 )
