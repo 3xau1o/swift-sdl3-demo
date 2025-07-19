@@ -2,8 +2,9 @@ import SDL3
 
 class SDLRenderer {
     let ptr: OpaquePointer
-    init(win: SDLWindow!) {
-        print("create renderer")
+
+    /** https://wiki.libsdl.org/SDL3/SDL_CreateRenderer */
+    init(win: SDLWindow) {
         ptr = SDL_CreateRenderer(win.ptr, nil)
     }
     deinit {
@@ -23,21 +24,45 @@ class SDLRenderer {
         SDL_RenderLine(ptr, x1, y1, x2, y2)
     }
 
-    func drawRect(_ frect: borrowing FRect?) -> Bool {
-        var sdlRect = frect.map { frectToSDL($0) }
-        return _SDL_Renderer.drawRect(ptr, &sdlRect)
-    }
-
-    func drawTexture(
-        _ texture: borrowing SDLTexture,
-        _ rectSrc: borrowing FRect?,
-        _ rectDest: inout FRect,
+    /** https://wiki.libsdl.org/SDL3/SDL_RenderRect */
+    private func renderRect(
+        _ ptrRend: OpaquePointer,
+        _ rect: inout SDL_FRect?
     ) -> Bool {
-        var sdlRectDest = frectToSDL(rectDest)
-        var sdlRectSrc: SDL_FRect? = nil  //rectSrc.map { frectToSDL($0) }
-
-        return true
+        SDL_RenderRect(
+            ptrRend,
+            rect.map { withUnsafePointer(to: $0) { $0 } }
+        )
     }
-    // https://wiki.libsdl.org/SDL3/SDL_SetDefaultTextureScaleMode
 
+    func renderRect(_ frect: FRect? = nil) -> Bool {
+        var sdlRect: SDL_FRect? = frect.map { frectToSDL($0) }
+        return self.renderRect(ptr, &sdlRect)
+    }
+
+    /** https://wiki.libsdl.org/SDL3/SDL_RenderTexture */
+    private func renderTexture(
+        _ texture: SDLTexture,
+        _ rectSrc: inout SDL_FRect?,
+        _ rectDest: inout SDL_FRect,
+    ) -> Bool {
+        SDL_RenderTexture(
+            ptr,
+            texture.ptr,
+            rectSrc.map({ withUnsafePointer(to: $0) { $0 } }),
+            &rectDest
+        )
+    }
+
+    func renderTexture(
+        _ texture: SDLTexture,
+        _ rectSrc: FRect?,
+        _ rectDest: FRect,
+    ) -> Bool {
+        var sdlRectSrc: SDL_FRect? = rectSrc.map { frectToSDL($0) }
+        var sdlRectDest: SDL_FRect = frectToSDL(rectDest)
+        return self.renderTexture(texture, &sdlRectSrc, &sdlRectDest)
+    }
+
+    /** https://wiki.libsdl.org/SDL3/SDL_SetDefaultTextureScaleMode */
 }
