@@ -1,6 +1,6 @@
 SDL3 bindings
 
-Ensure sdlr libs are installed system wide, they may be available by package manager, if not [build from source ](https://github.com/libsdl-org/SDL/blob/main/INSTALL.md)
+Ensure sdl libs are installed system wide, they may be available by package manager, if not [build from source ](https://github.com/libsdl-org/SDL/blob/main/INSTALL.md)
 
 Linux
 
