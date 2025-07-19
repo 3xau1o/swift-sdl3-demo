@@ -1,5 +1,5 @@
 import SDL3
-import SDL3_IMG
+import SDL3.IMG
 
 /// https://wiki.libsdl.org/SDL3/SDL_Texture
 class SDLTexture {

@@ -22,23 +22,22 @@ class SDLRenderer {
     func drawLine(x1: Float, y1: Float, x2: Float, y2: Float) -> Bool {
         SDL_RenderLine(ptr, x1, y1, x2, y2)
     }
-    func drawRect(rect: borrowing SDL_FRect) -> Bool {
-        return withUnsafePointer(to: rect) { ptrRect in
-            SDL_RenderRect(ptr, ptrRect)
-        }
-    }
-    /** https://wiki.libsdl.org/SDL3/SDL_RenderTexture */
-    func drawTexture(
-        _ texture: SDLTexture,
-        _ srcrect: inout SDL_FRect?,
-        _ dstrect: inout SDL_FRect
-    ) -> Bool {
-        if var srcrect {
-            SDL_RenderTexture(ptr, texture.ptr, &srcrect, &dstrect)
-        } else {
-            SDL_RenderTexture(ptr, texture.ptr, nil, &dstrect)
 
-        }
+    func drawRect(_ frect: borrowing FRect?) -> Bool {
+        var sdlRect = frect.map { frectToSDL($0) }
+        return _SDL_Renderer.drawRect(ptr, &sdlRect)
     }
+
+    func drawTexture(
+        _ texture: borrowing SDLTexture,
+        _ rectSrc: borrowing FRect?,
+        _ rectDest: inout FRect,
+    ) -> Bool {
+        var sdlRectDest = frectToSDL(rectDest)
+        var sdlRectSrc: SDL_FRect? = nil  //rectSrc.map { frectToSDL($0) }
+
+        return true
+    }
+    // https://wiki.libsdl.org/SDL3/SDL_SetDefaultTextureScaleMode
+
 }
-// https://wiki.libsdl.org/SDL3/SDL_SetDefaultTextureScaleMode

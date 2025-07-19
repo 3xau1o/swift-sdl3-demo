@@ -10,3 +10,7 @@ pkg-config --variable pc_path pkg-config
 ```
 
 https://github.com/swiftlang/swift-package-manager/blob/main/Documentation/Usage.md#requiring-system-libraries
+
+## modulemap
+Header overload for SDL module works when SDL_IMG headers and SDL_TTF headers are submodules of SDL_3 headers
+SDL_IMG 
