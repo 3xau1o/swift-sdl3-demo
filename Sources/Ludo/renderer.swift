@@ -43,25 +43,26 @@ class SDLRenderer {
     /** https://wiki.libsdl.org/SDL3/SDL_RenderTexture */
     private func renderTexture(
         _ texture: SDLTexture,
-        _ rectSrc: inout SDL_FRect?,
-        _ rectDest: inout SDL_FRect,
+        _ rectSrc: borrowing SDL_FRect?,
+        _ rectDest: borrowing SDL_FRect,
     ) -> Bool {
         SDL_RenderTexture(
             ptr,
             texture.ptr,
             rectSrc.map({ withUnsafePointer(to: $0) { $0 } }),
-            &rectDest
+            withUnsafePointer(to: rectDest) { $0 }
         )
     }
-
     func renderTexture(
         _ texture: SDLTexture,
         _ rectSrc: FRect?,
         _ rectDest: FRect,
     ) -> Bool {
-        var sdlRectSrc: SDL_FRect? = rectSrc.map { frectToSDL($0) }
-        var sdlRectDest: SDL_FRect = frectToSDL(rectDest)
-        return self.renderTexture(texture, &sdlRectSrc, &sdlRectDest)
+        self.renderTexture(
+            texture,
+            rectSrc.map { frectToSDL($0) },
+            frectToSDL(rectDest)
+        )
     }
 
     /** https://wiki.libsdl.org/SDL3/SDL_SetDefaultTextureScaleMode */
