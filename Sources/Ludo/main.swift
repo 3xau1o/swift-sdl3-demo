@@ -3,8 +3,8 @@ import SDL3
 import SDL3.IMG
 import SDL3.TTF
 
-let BLANKA = RGBA(r: 255, g: 255, b: 255, a: 255)
-let NIGRA = RGBA(r: 0, g: 0, b: 0, a: 0)
+let BLANKA = SDL_Color(r: 255, g: 255, b: 255, a: 255)
+let NIGRA = SDL_Color(r: 0, g: 0, b: 0, a: 0)
 
 rendi()
 
@@ -22,7 +22,7 @@ func rendi() {
     var quit = false
     var event = SDL_Event()
 
-    let rectSrc: FRect = (x: 50, y: 50, w: 100, h: 100)
+    let rectSrc = SDL_FRect(x: 50, y: 50, w: 100, h: 100)
 
     let urlBBishop = Bundle.module.url(forResource: "b_bishop", withExtension: "png")
 
@@ -47,9 +47,9 @@ func rendi() {
             }
         }
 
-        _ = renderer.setDrawColor(c: NIGRA)
+        _ = renderer.SetRenderDrawColor(c: NIGRA)
         _ = renderer.clear()
-        _ = renderer.setDrawColor(c: BLANKA)
+        _ = renderer.SetRenderDrawColor(c: BLANKA)
         _ = renderer.drawLine(x1: 0, y1: 0, x2: 50, y2: 50)
         _ = renderer.renderRect(rectSrc)
         _ = renderer.renderRect(rectSrc)
