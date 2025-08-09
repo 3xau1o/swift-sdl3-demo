@@ -26,6 +26,11 @@ func rendi() {
 
     let urlBBishop = Bundle.module.url(forResource: "b_bishop", withExtension: "png")
 
+    let line = SDL_FLine(
+        a: SDL_FPoint(x: 0, y: 0),
+        b: SDL_FPoint(x: 50, y: 50)
+    )
+
     if urlBBishop == nil {
         return
     }
@@ -50,10 +55,10 @@ func rendi() {
         _ = renderer.SetRenderDrawColor(c: NIGRA)
         _ = renderer.clear()
         _ = renderer.SetRenderDrawColor(c: BLANKA)
-        _ = renderer.drawLine(x1: 0, y1: 0, x2: 50, y2: 50)
-        _ = renderer.renderRect(rectSrc)
-        _ = renderer.renderRect(rectSrc)
-        _ = renderer.renderTexture(texture, nil, rectSrc)
+        _ = renderer.drawLine(l: line)
+        _ = renderer.renderRect(r: rectSrc)
+        _ = renderer.renderRect(r: rectSrc)
+        _ = renderer.renderTexture(t: texture, rs: nil, rd: rectSrc)
         _ = renderer.present()
 
         SDL_Delay(1)

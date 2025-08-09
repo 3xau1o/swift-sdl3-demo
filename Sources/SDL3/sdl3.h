@@ -16,6 +16,12 @@ bool SDL_RenderTexture(
     const SDL_FRect _Nullable *srcrect,
     const SDL_FRect _Nullable *dstrect);
 
+/** https://wiki.libsdl.org/SDL3/SDL_RenderClear */
+bool SDL_RenderClear(SDL_Renderer _Nonnull *renderer);
+
+/** https://wiki.libsdl.org/SDL3/SDL_RenderPresent */
+bool SDL_RenderPresent(SDL_Renderer _Nonnull *renderer);
+
 /** https://wiki.libsdl.org/SDL3/SDL_CreateRenderer */
 SDL_Renderer *SDL_CreateRenderer(
     SDL_Window _Nonnull *window,

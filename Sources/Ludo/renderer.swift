@@ -7,13 +7,18 @@ class SDLRenderer {
     init(win: SDLWindow) {
         ptr = SDL_CreateRenderer(win.ptr, nil)
     }
+
+    /** https://wiki.libsdl.org/SDL3/SDL_DestroyRenderer */
     deinit {
-        print("drop renderer \(String(describing: ptr))")
         SDL_DestroyRenderer(ptr)
     }
+
+    /** https://wiki.libsdl.org/SDL3/SDL_RenderClear */
     func clear() -> Bool {
         SDL_RenderClear(ptr)
     }
+
+    /** https://wiki.libsdl.org/SDL3/SDL_RenderPresent */
     func present() -> Bool {
         SDL_RenderPresent(ptr)
     }
@@ -43,24 +48,24 @@ class SDLRenderer {
     }
 
     /** https://wiki.libsdl.org/SDL3/SDL_RenderRect */
-    func renderRect(_ rect: borrowing SDL_FRect?) -> Bool {
+    func renderRect(r: borrowing SDL_FRect?) -> Bool {
         SDL_RenderRect(
             ptr,
-            rect.map { withUnsafePointer(to: $0) { $0 } }
+            r.map { withUnsafePointer(to: $0) { $0 } }
         )
     }
 
     /** https://wiki.libsdl.org/SDL3/SDL_RenderTexture */
     func renderTexture(
-        _ texture: SDLTexture,
-        _ rectSrc: borrowing SDL_FRect?,
-        _ rectDest: borrowing SDL_FRect,
+        t: SDLTexture,
+        rs: borrowing SDL_FRect?,
+        rd: borrowing SDL_FRect?,
     ) -> Bool {
         SDL_RenderTexture(
             ptr,
-            texture.ptr,
-            rectSrc.map({ withUnsafePointer(to: $0) { $0 } }),
-            withUnsafePointer(to: rectDest) { $0 }
+            t.ptr,
+            rs.map { withUnsafePointer(to: $0) { $0 } },
+            rd.map { withUnsafePointer(to: $0) { $0 } }
         )
     }
 
