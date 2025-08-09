@@ -30,7 +30,9 @@ func rendi() {
         return
     }
 
-    let texture = SDLTexture(renderer, urlBBishop!.path)
+    guard let texture = SDLTexture.loadTexture(renderer, urlBBishop!.path) else {
+        return
+    }
     _ = texture.setScaleMode()
 
     while !quit {

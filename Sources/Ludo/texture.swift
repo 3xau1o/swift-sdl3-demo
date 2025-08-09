@@ -5,12 +5,21 @@ import SDL3.IMG
 class SDLTexture {
     let ptr: UnsafeMutablePointer<SDL_Texture>
     /** https://wiki.libsdl.org/SDL3/SDL_CreateTexture */
-    init(_ renderer: SDLRenderer, _ path: String) {
-        print("create txture")
-        ptr = IMG_LoadTexture(renderer.ptr, path)
-        let errPtr = SDL_GetError()
-        print("SDL Error: \(String(describing: String(cString:errPtr!)))")
+    private init(_ ptr: UnsafeMutablePointer<SDL_Texture>) {
+        print("create texture")
+        self.ptr = ptr
     }
+
+    /** https://wiki.libsdl.org/SDL3_image/IMG_LoadTexture */
+    static func loadTexture(_ renderer: SDLRenderer, _ path: String) -> SDLTexture? {
+        guard let texturePtr = IMG_LoadTexture(renderer.ptr, path) else {
+            let errPtr = SDL_GetError()
+            print("SDL Error: \(String(describing: String(cString: errPtr!)))")
+            return nil
+        }
+        return SDLTexture(texturePtr)
+    }
+
     /** https://wiki.libsdl.org/SDL3/SDL_DestroyTexture */
     deinit {
         print("drop texture \(String(describing: ptr))")
