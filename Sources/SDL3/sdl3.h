@@ -1,6 +1,9 @@
 #include "SDL3/SDL.h"
 #include <stdbool.h>
 
+// always set either _Nonnull or _Nullable clang attributes to pointers parameters
+// for swift C import https://github.com/swiftlang/swift/blob/main/docs/HowSwiftImportsCAPIs.md#nullable-and-non-nullable-pointers
+
 /** https://wiki.libsdl.org/SDL3/SDL_RenderRect */
 bool SDL_RenderRect(
     SDL_Renderer _Nonnull *renderer,
@@ -24,3 +27,10 @@ bool SDL_SetRenderDrawColor(
     Uint8 g,
     Uint8 b,
     Uint8 a);
+
+int SDL_RenderDrawLine(
+    SDL_Renderer _Nonnull *renderer,
+    int x1,
+    int y1,
+    int x2,
+    int y2);

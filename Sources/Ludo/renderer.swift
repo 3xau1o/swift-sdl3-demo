@@ -28,8 +28,18 @@ class SDLRenderer {
         SDL_SetRenderDrawColor(ptr, c.r, c.g, c.b, c.a)
     }
 
+    /** https://wiki.libsdl.org/SDL2/SDL_RenderDrawLine */
     func drawLine(x1: Float, y1: Float, x2: Float, y2: Float) -> Bool {
         SDL_RenderLine(ptr, x1, y1, x2, y2)
+    }
+
+    /** https://wiki.libsdl.org/SDL2/SDL_RenderDrawLine */
+    func drawLine(l: borrowing SDL_FLine) -> Bool {
+        SDL_RenderLine(
+            ptr,
+            l.a.x, l.a.y,
+            l.b.x, l.b.y
+        )
     }
 
     /** https://wiki.libsdl.org/SDL3/SDL_RenderRect */
