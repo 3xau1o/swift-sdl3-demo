@@ -55,6 +55,13 @@ class SDLRenderer {
         )
     }
 
+    /** https://wiki.libsdl.org/SDL3/SDL_RenderRects */
+    func renderRects(rs: borrowing [SDL_FRect]) -> Bool {
+        rs.withUnsafeBufferPointer { bufPtr in
+            SDL_RenderRects(ptr, bufPtr.baseAddress, Int32(bufPtr.count))
+        }
+    }
+
     /** https://wiki.libsdl.org/SDL3/SDL_RenderTexture */
     func renderTexture(
         t: SDLTexture,

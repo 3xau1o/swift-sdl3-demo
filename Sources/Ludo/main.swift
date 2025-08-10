@@ -58,6 +58,12 @@ func rendi() {
         _ = renderer.drawLine(l: line)
         _ = renderer.renderRect(r: rectSrc)
         _ = renderer.renderRect(r: rectSrc)
+        // Example: render multiple rects
+        let rects: [SDL_FRect] = [
+            SDL_FRect(x: 10, y: 10, w: 30, h: 30),
+            SDL_FRect(x: 100, y: 100, w: 40, h: 40)
+        ]
+        _ = renderer.renderRects(rs: rects)
         _ = renderer.renderTexture(t: texture, rs: nil, rd: rectSrc)
         _ = renderer.present()
 
