@@ -19,3 +19,7 @@ Trying to use [Clang's Nullability Attributes](https://clang.llvm.org/docs/Attri
 swift build
 swift run
 ```
+
+swiftly update latest
+swiftly install 6.2-snapshot
+swiftly use 6.2-snapshot
