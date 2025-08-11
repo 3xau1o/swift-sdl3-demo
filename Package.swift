@@ -1,5 +1,4 @@
 // swift-tools-version: 6.2
-// The swift-tools-version declares the minimum version of Swift required to build this package.
 import PackageDescription
 
 let package = Package(
@@ -13,10 +12,10 @@ let package = Package(
             name: "SDL3",
             pkgConfig: "sdl3"
         ),
-        .target(
+        .executableTarget(
             name: "Ludo",
             dependencies: [
-                .target(name: "SDL3")
+                .target(name: "SDL3"),
             ],
             resources: [.process("Resources")],
             swiftSettings: [.interoperabilityMode(.Cxx)]
